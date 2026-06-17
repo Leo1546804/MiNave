@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:title="Dashboard / Inicio" />
+        <item
+            android:id="@+id/nav_vehiculos"
+            android:title="Mis Vehículos" />
+        <item
+            android:id="@+id/nav_combustible"
+            android:title="Control de Combustible" />
+        <item
+            android:id="@+id/nav_mantenimiento"
+            android:title="Mantenimientos" />
+        <item
+            android:id="@+id/nav_lavadas"
+            android:title="Historial de Lavadas" />
+        <item
+            android:id="@+id/nav_certificados"
+            android:title="Documentos y Certificados" />
+    </group>
+
+    <item android:title="Cuenta">
+        <menu>
+            <item
+                android:id="@+id/nav_cerrar_sesion"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+
+</menu>
