@@ -7,7 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.minave.databinding.ActivityRegistroBinding
+import com.example.minave.modelos.Usuario
 import com.example.minave.repositorio.UsuarioRepository
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RegistroActivity : AppCompatActivity() {
 
@@ -35,12 +39,25 @@ class RegistroActivity : AppCompatActivity() {
             if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                // llamamos a la funcion del repositorio para insertar en SQLite
-                val idGenerado = usuarioRepo.insertarUsuario(nombre, apellido, correo, contrasena)
+
+                //Conseguimos la fecha de hoy para guardarla en el modelo
+                val formatoFecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val fechaActual = formatoFecha.format(Date())
+
+                // Creamos el objeto USUARIO
+                val nuevoUsuario = Usuario(
+                    nombre = nombre,
+                    apellido = apellido,
+                    correo = correo,
+                    contrasenia = contrasena,
+                    fechaRegistro = fechaActual
+                )
+
+                val idGenerado = usuarioRepo.insertarUsuario(nuevoUsuario)
 
                 if(idGenerado != -1L){
                     Toast.makeText(this, "¡Usuario registrado con éxito! ID: $idGenerado", Toast.LENGTH_LONG).show()
-                    finish() //cerramos la pantalla y regresamos al login
+                    finish()
                 } else{
                     Toast.makeText(this, "Error al guardar en la Base de Datos", Toast.LENGTH_SHORT).show()
                 }
