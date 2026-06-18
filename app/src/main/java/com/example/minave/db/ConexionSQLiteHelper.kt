@@ -41,7 +41,7 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
 
     override fun onOpen(db: SQLiteDatabase) {
         super.onOpen(db)
-        // Truco técnico: Activamos el soporte de Llaves Foráneas en SQLite nativo
+        // Activamos el soporte de Llaves Foráneas en SQLite nativo
         db.setForeignKeyConstraintsEnabled(true)
     }
 }
