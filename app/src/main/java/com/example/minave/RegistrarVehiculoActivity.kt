@@ -15,6 +15,8 @@ class RegistrarVehiculoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrarVehiculoBinding
     private lateinit var vehiculoRepo: VehiculoRepository
+    private var modoEdicion = false
+    private var idVehiculoAEditar = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,29 @@ class RegistrarVehiculoActivity : AppCompatActivity() {
 
         //inicializamos el repositorio de vehiculos
         vehiculoRepo = VehiculoRepository(this)
+
+        modoEdicion = intent.getBooleanExtra("modo_edicion", false)
+
+        if(modoEdicion){
+            // Sacamos los datos individuales de la mudanza
+            idVehiculoAEditar = intent.getIntExtra("id_vehiculo", -1)
+            val placaExtra = intent.getStringExtra("placa") ?: ""
+            val marcaExtra = intent.getStringExtra("marca") ?: ""
+            val modeloExtra = intent.getStringExtra("modelo") ?: ""
+            val anioExtra = intent.getIntExtra("anio", 0)
+            val colorExtra = intent.getStringExtra("color") ?: ""
+            val combustibleExtra = intent.getStringExtra("combustible") ?: ""
+
+            binding.btnGuardarVehiculo.text = "Actualizar Nave"
+            binding.txtTitulo.text = "Modificar nave"
+
+            binding.campoPlaca.setText(placaExtra)
+            binding.campoMarca.setText(marcaExtra)
+            binding.campoModelo.setText(modeloExtra)
+            binding.campoAnio.setText(anioExtra.toString())
+            binding.campoColor.setText(colorExtra)
+            binding.campoCombustible.setText(combustibleExtra)
+        }
 
         //accion del boton volver
         binding.btnVolverRegistro.setOnClickListener {
@@ -51,14 +76,36 @@ class RegistrarVehiculoActivity : AppCompatActivity() {
                 val idUsuarioSesion = preferencias.getInt("id_usuario_conectado", -1)
 
                 if (idUsuarioSesion != -1) {
-                    val nuevoVehiculo = Vehiculo(
+
+                    if(modoEdicion){
+                        val vehiculoActualizado = Vehiculo(
+                            id = idVehiculoAEditar,
+                            placa = placa,
+                            marca = marca,
+                            modelo = modelo,
+                            anio = anio,
+                            color = color,
+                            tipoCombustible = combustible,
+                            idUsuario = idUsuarioSesion
+                        )
+
+                        val exitoUpdate = vehiculoRepo.actualizarVehiculo(vehiculoActualizado)
+
+                        if(exitoUpdate){
+                            Toast.makeText(this, "¡Nave actualizada con éxito!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else{
+                            Toast.makeText(this, "Error al actualizar los datos en la Base de Datos", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val nuevoVehiculo = Vehiculo(
                         placa = placa,
                         marca = marca,
                         modelo = modelo,
                         anio = anio,
                         color = color,
                         tipoCombustible = combustible,
-                        idUsuario = idUsuarioSesion // ¡Ahora sí, el vehículo le pertenece al inspector logueado!
+                        idUsuario = idUsuarioSesion // el vehículo le pertenece al inspector logueado
                     )
 
                     val idGenerado = vehiculoRepo.insertarVehiculo(nuevoVehiculo)
@@ -69,6 +116,7 @@ class RegistrarVehiculoActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(this, "Error al guardar el vehículo en la Base de Datos", Toast.LENGTH_SHORT).show()
                     }
+                  }
                 } else{
                     Toast.makeText(this, "Error: No se detectó la sesion del usuario. Vuelve a iniciar sesión.", Toast.LENGTH_LONG).show()
                 }

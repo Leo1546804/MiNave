@@ -59,11 +59,30 @@ class VehiculoFragment : Fragment() {
             //inflamos el adaptador pasandole la listaa y escuchando la opcion que presionó
             binding.rvVehiculos.adapter = VehiculoAdapter(listaNaves){ nave, opcion ->
                 when(opcion){
-                    "editar" -> {
-                        Toast.makeText(requireContext(), "Editar: ${nave.placa}", Toast.LENGTH_SHORT).show()
+                    "Editar" -> {
+                        val intencion = Intent(requireContext(), RegistrarVehiculoActivity::class.java )
+
+                        //Metemos todos los datos del carro actual en la maleta del Intent
+                        intencion.putExtra("modo_edicion", true)
+                        intencion.putExtra("id_vehiculo", nave.id ?: 0)
+                        intencion.putExtra("placa", nave.placa)
+                        intencion.putExtra("marca", nave.marca)
+                        intencion.putExtra("modelo", nave.modelo)
+                        intencion.putExtra("anio", nave.anio)
+                        intencion.putExtra("color", nave.color)
+                        intencion.putExtra("combustible", nave.tipoCombustible)
+
+                        startActivity(intencion)
                     }
                     "Eliminar" ->{
-                        Toast.makeText(requireContext(), "Eliminar de base de datos: ${nave.placa}", Toast.LENGTH_SHORT).show()
+                        val eliminadoConExito = vehiculoRepo.eliminarVehiculo(nave.id ?: 0)
+
+                        if (eliminadoConExito){
+                            Toast.makeText(requireContext(), "Nave eliminada: ${nave.placa}", Toast.LENGTH_SHORT).show()
+                            actualizarLista()
+                        } else{
+                            Toast.makeText(requireContext(), "Error al intentar eliminar", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

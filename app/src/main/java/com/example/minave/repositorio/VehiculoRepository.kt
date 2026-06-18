@@ -53,4 +53,28 @@ class VehiculoRepository(contexto: Context) {
         return lista
     }
 
+    fun actualizarVehiculo(vehiculo: Vehiculo): Boolean{
+        val db: SQLiteDatabase = ayudante.writableDatabase
+        val bandeja = ContentValues()
+
+        bandeja.put("placa", vehiculo.placa)
+        bandeja.put("marca", vehiculo.marca)
+        bandeja.put("modelo", vehiculo.modelo)
+        bandeja.put("anio", vehiculo.anio)
+        bandeja.put("color", vehiculo.color)
+        bandeja.put("tipo_combustible", vehiculo.tipoCombustible)
+
+        val filasActualizadas = db.update("vehiculos", bandeja,"id = ?", arrayOf(vehiculo.id.toString()))
+
+        return filasActualizadas > 0
+    }
+
+    fun eliminarVehiculo(idVehiculo: Int): Boolean{
+        val db: SQLiteDatabase = ayudante.writableDatabase
+
+        val filasEliminadas = db.delete("vehiculos", "id = ?", arrayOf(idVehiculo.toString()))
+
+        return filasEliminadas > 0
+    }
+
 }
