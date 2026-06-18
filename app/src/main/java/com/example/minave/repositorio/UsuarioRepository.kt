@@ -52,4 +52,22 @@ class UsuarioRepository(contexto: Context) {
         return existeUsuario
     }
 
+    fun obtenerIdPorCorreo(correo: String): Int{
+        val db: SQLiteDatabase = ayudante.readableDatabase
+        var idEncontrado = -1
+
+        val consulta = "Select id FROM usuarios WHERE correo = ?"
+        val parametros = arrayOf(correo)
+
+        val cursor = db.rawQuery(consulta,parametros)
+
+        if(cursor.moveToFirst()){
+            idEncontrado = cursor.getInt(0)
+        }
+
+        cursor.close()
+
+        return idEncontrado
+    }
+
 }

@@ -5,4 +5,22 @@
     <color name="azul_principal">#0D47A1</color> <color name="gris_boton_secundario">#E8EDF5</color> <color name="azul_enlace">#0056B3</color> <color name="degradado_inicio">#79B0EC</color> <color name="degradado_fin">#FFFFFF</color>   <color name="blanco">#FFFFFF</color>
     <color name="negro_texto">#202124</color>
     <color name="gris_subtitulo">#5F6368</color>
+
+
+
+    <style name="diseñoBoton" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/azul_principal</item> <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <style name="diseñoInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/azul_principal</item>      <item name="hintTextColor">@color/azul_principal</item>      <item name="android:textColorHint">@color/gris_subtitulo</item> <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
 </resources>
