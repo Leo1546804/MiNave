@@ -1,13 +1,16 @@
 package com.example.minave
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.minave.databinding.ActivityMainBinding
 
@@ -64,6 +67,25 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
+        //Candado del menú lateral
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener(){
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+
+                //Revisamos la caja fuerte para ver si hay carro activo
+                val preferencias = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+                val tieneVehiculoActivo = preferencias.getInt("id_vehiculo_activo", -1) != -1
+
+                val menu = binding.navegacionLateral.menu
+
+                //bloqueamos o desbloqueamos los items operativos
+                menu.findItem(R.id.nav_combustible)?.isEnabled = tieneVehiculoActivo
+                menu.findItem(R.id.nav_mantenimiento)?.isEnabled = tieneVehiculoActivo
+                menu.findItem(R.id.nav_lavadas)?.isEnabled = tieneVehiculoActivo
+                menu.findItem(R.id.nav_certificados)?.isEnabled = tieneVehiculoActivo
+            }
+        })
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.drawerLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
