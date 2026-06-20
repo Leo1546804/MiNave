@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minave.databinding.FragmentInicioBinding
+import com.example.minave.repositorio.CertificadoRepository
+import com.example.minave.repositorio.LavadaRepository
+import com.example.minave.repositorio.MantenimientoRepository
 import com.example.minave.repositorio.VehiculoRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -18,6 +21,11 @@ class InicioFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var vehiculoRepo: VehiculoRepository
+    private lateinit var lavadaRepo: LavadaRepository
+    private lateinit var mantenimientoRepo: MantenimientoRepository
+    private lateinit var certificadoRepo: CertificadoRepository
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
@@ -29,6 +37,9 @@ class InicioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         vehiculoRepo = VehiculoRepository(requireContext())
+        lavadaRepo = LavadaRepository(requireContext())
+        mantenimientoRepo = MantenimientoRepository(requireContext())
+        certificadoRepo = CertificadoRepository(requireContext())
 
         // Acción del botón del estado vacio, este boton solo se mostrara en el fragment cuando no haya un vehiculo registrado
         binding.btnIrARegistrar.setOnClickListener {
@@ -86,6 +97,8 @@ class InicioFragment : Fragment() {
                 binding.layoutDashboardReal.visibility = View.VISIBLE
 
                 binding.txtVehiculoActivo.text = nombreActivo
+
+                calcularYMostrarGastos(idActivo)
             }
         }
 
@@ -140,6 +153,19 @@ class InicioFragment : Fragment() {
                 }
                 .show()
         }
+
+    private fun calcularYMostrarGastos(idVehiculo: Int){
+        val totalLavadas = lavadaRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
+        val totalMantenimiento = mantenimientoRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
+        val totalCertificados = certificadoRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
+
+        val granTotal = totalLavadas + totalMantenimiento + totalCertificados
+
+        binding.txtTotalGastado.text = String.format("S/ %.2f", granTotal)
+        binding.txtGastoMantenimiento.text = String.format("S/ %.2f", totalMantenimiento)
+        binding.txtGastoLavadas.text = String.format("S/ %.2f", totalLavadas)
+        binding.txtGastoDocumentos.text = String.format("S/ %.2f", totalCertificados)
+    }
 
         override fun onDestroyView() {
             super.onDestroyView()

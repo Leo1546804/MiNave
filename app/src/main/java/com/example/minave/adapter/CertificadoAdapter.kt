@@ -24,7 +24,10 @@ class CertificadoAdapter(
 
         holder.binding.tvTipoDocumento.text = certificado.tipoDocumento
         holder.binding.tvEmpresa.text = certificado.empresaEmisora
+        holder.binding.tvFechaEmision.text = "Emitido: ${certificado.fechaEmision}"
         holder.binding.tvVencimiento.text = "Vence: ${certificado.fechaVencimiento}"
+        holder.binding.tvCostoCertificado.text = "S/ ${String.format("%.2f", certificado.costo)}"
+        holder.binding.tvObservacionesCertificado.text = certificado.observaciones.ifEmpty { "Documentación legal vigente" }
 
         holder.binding.btnMenuOpciones.setOnClickListener { vista ->
             val menu = PopupMenu(vista.context, vista)

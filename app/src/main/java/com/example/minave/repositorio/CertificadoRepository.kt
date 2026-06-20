@@ -27,6 +27,7 @@ class CertificadoRepository(private val contexto: Context) {
             put("fecha_emision", certificado.fechaEmision)
             put("fecha_vencimiento", certificado.fechaVencimiento)
             put("empresa_emisora", certificado.empresaEmisora)
+            put("costo", certificado.costo)
             put("observaciones", certificado.observaciones)
         }
 
@@ -40,11 +41,7 @@ class CertificadoRepository(private val contexto: Context) {
 
         if (idVehiculoActivo == -1) return lista
 
-        val consulta = """
-            SELECT * FROM certificado 
-            WHERE id_vehiculo = ?
-        """.trimIndent()
-
+        val consulta = "SELECT * FROM certificado WHERE id_vehiculo = ?"
         val cursor = db.rawQuery(consulta, arrayOf(idVehiculoActivo.toString()))
 
         if (cursor.moveToFirst()) {
@@ -56,7 +53,8 @@ class CertificadoRepository(private val contexto: Context) {
                     fechaEmision = cursor.getString(3),
                     fechaVencimiento = cursor.getString(4),
                     empresaEmisora = cursor.getString(5),
-                    observaciones = cursor.getString(6)
+                    costo = cursor.getDouble(6),
+                    observaciones = cursor.getString(7)
                 )
                 lista.add(certificado)
             } while (cursor.moveToNext())
@@ -72,6 +70,7 @@ class CertificadoRepository(private val contexto: Context) {
             put("fecha_emision", certificado.fechaEmision)
             put("fecha_vencimiento", certificado.fechaVencimiento)
             put("empresa_emisora", certificado.empresaEmisora)
+            put("costo", certificado.costo)
             put("observaciones", certificado.observaciones)
         }
 
@@ -83,5 +82,16 @@ class CertificadoRepository(private val contexto: Context) {
         val db: SQLiteDatabase = ayudante.writableDatabase
         val filasEliminadas = db.delete("certificado", "id = ?", arrayOf(idCertificado.toString()))
         return filasEliminadas > 0
+    }
+
+    fun obtenerGastoTotalPorVehiculo(idVehiculo: Int): Double {
+        var total = 0.0
+        val db = ayudante.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(costo) FROM certificado WHERE id_vehiculo = ?", arrayOf(idVehiculo.toString()))
+        if (cursor.moveToFirst()) {
+            total = cursor.getDouble(0)
+        }
+        cursor.close()
+        return total
     }
 }

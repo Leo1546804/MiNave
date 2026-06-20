@@ -79,4 +79,16 @@ class LavadaRepository(private val contexto: Context) {
         val filasEliminadas = db.delete("lavadas", "id = ?", arrayOf(idLavada.toString()))
         return filasEliminadas > 0
     }
+
+    fun obtenerGastoTotalPorVehiculo(idVehiculo: Int): Double{
+        var total = 0.0
+        val db = ayudante.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(costo) FROM lavadas WHERE id_vehiculo = ?", arrayOf(idVehiculo.toString()))
+        if(cursor.moveToFirst()){
+            total = cursor.getDouble(0)
+        }
+        cursor.close()
+        return total
+    }
+
 }

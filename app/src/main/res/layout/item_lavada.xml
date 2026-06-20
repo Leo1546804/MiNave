@@ -57,7 +57,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvObservacionesLavada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Servicio de limpieza vehicular"
+                android:textColor="@color/gris_subtitulo"
+                android:textSize="13sp"
+                android:fontStyle="italic"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="#F1F5F9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center_vertical">
 
             <TextView

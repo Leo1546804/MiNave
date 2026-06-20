@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="6dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    app:strokeWidth="1dp"
+    app:strokeColor="#E2E8F0"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,115 +23,91 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/txt_item_tipo"
+                android:id="@+id/txtItemTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/layout_acciones"
+                android:layout_toStartOf="@+id/btnMenuOpcionesMantenimiento"
                 android:layout_alignParentStart="true"
-                android:text="Cambio de Aceite"
-                android:textColor="@color/azul_principal"
-                android:textSize="18sp"
+                android:text="Mantenimiento General"
+                android:textColor="@color/negro_texto"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/layout_acciones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/btnMenuOpcionesMantenimiento"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_editar_item"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@android:drawable/ic_menu_edit"
-                    app:tint="@color/azul_principal"
-                    android:contentDescription="Editar" />
-
-                <ImageButton
-                    android:id="@+id/btn_eliminar_item"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@android:drawable/ic_menu_delete"
-                    app:tint="#E53935"
-                    android:contentDescription="Eliminar" />
-            </LinearLayout>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_more"
+                android:contentDescription="Opciones"
+                app:tint="@color/gris_subtitulo"/>
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/txt_item_costo"
+            android:id="@+id/txtItemTaller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="S/ 150.00"
-            android:textColor="@color/negro_texto"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_item_fecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Fecha: 15/10/2023"
+            android:text="Central Motors"
             android:textColor="@color/gris_subtitulo"
             android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/txtItemKm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Km: 45,000"
+                android:textColor="@color/negro_texto"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtItemProximoKm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Próximo: 50,000"
+                android:textColor="@color/azul_acento"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
-            android:background="#EEEEEE" />
+            android:layout_marginVertical="10dp"
+            android:background="#F1F5F9" />
 
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/txt_item_km"
+                android:id="@+id/txtItemFecha"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="KM: 45,000"
-                android:textColor="@color/negro_texto"
+                android:layout_weight="1"
+                android:text="15/10/2023"
+                android:textColor="@color/gris_subtitulo"
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/txt_item_proximo_km"
-                android:layout_width="0dp"
+                android:id="@+id/txtItemCosto"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Próximo: 50,000"
-                android:textColor="@color/azul_enlace"
-                android:textSize="13sp"
+                android:text="S/ 250.00"
+                android:textColor="@color/azul_principal"
+                android:textSize="16sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_item_taller"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginTop="4dp"
-                android:text="Taller: Central Motors"
-                android:textColor="@color/negro_texto"
-                android:textSize="13sp" />
-        </GridLayout>
-
-        <TextView
-            android:id="@+id/txt_item_observaciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Observaciones: Se cambió filtro de aire también."
-            android:textColor="@color/gris_subtitulo"
-            android:textSize="12sp"
-            android:fontStyle="italic" />
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -39,6 +39,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
                 binding.campoEmpresaEmisora.setText(bundle.getString("empresa", ""))
                 binding.campoFechaEmision.setText(bundle.getString("emision", ""))
                 binding.campoFechaVencimiento.setText(bundle.getString("vencimiento", ""))
+                binding.campoCostoCertificado.setText(bundle.getDouble("costo", 0.0).toString())
                 binding.campoObservaciones.setText(bundle.getString("observaciones", ""))
             }
         }
@@ -75,16 +76,18 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
         val empresa = binding.campoEmpresaEmisora.text.toString()
         val emision = binding.campoFechaEmision.text.toString()
         val vencimiento = binding.campoFechaVencimiento.text.toString()
+        val costoStr = binding.campoCostoCertificado.text.toString()
         val observaciones = binding.campoObservaciones.text.toString()
 
         if (tipo.isNotEmpty()) {
             val certificado = Certificado(
                 id = if (modoEdicion) idCertificadoEditar else null,
-                idVehiculo = idVehiculoRelacionado, // El repo lo sobrescribe si es inserción, pero lo mantenemos para actualización
+                idVehiculo = idVehiculoRelacionado,
                 tipoDocumento = tipo,
                 fechaEmision = emision,
                 fechaVencimiento = vencimiento,
                 empresaEmisora = empresa,
+                costo = costoStr.toDoubleOrNull() ?: 0.0,
                 observaciones = observaciones
             )
 

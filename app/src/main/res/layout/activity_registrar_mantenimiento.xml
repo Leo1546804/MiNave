@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@drawable/fondo_app">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +17,7 @@
         android:paddingEnd="16dp">
 
         <ImageButton
-            android:id="@+id/btn_volver"
+            android:id="@+id/btnVolver"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -27,7 +26,7 @@
             android:contentDescription="Volver" />
 
         <TextView
-            android:id="@+id/txt_titulo_mantenimiento"
+            android:id="@+id/txtTituloMantenimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar Mantenimiento"
@@ -58,19 +57,29 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Detalles Técnicos"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/negro_texto"
+                    android:layout_marginBottom="20dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/diseñoInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Tipo de Mantenimiento">
+                    android:hint="Tipo de Mantenimiento"
+                    app:startIconDrawable="@android:drawable/ic_menu_manage">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campo_tipo"
+                        android:id="@+id/campoTipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
-                        android:inputType="textCapWords"/>
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -78,17 +87,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Fecha de Mantenimiento">
+                    android:hint="Fecha de Servicio"
+                    app:startIconDrawable="@android:drawable/ic_menu_my_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campo_fecha"
+                        android:id="@+id/campoFecha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
                         android:focusable="false"
                         android:clickable="true"
-                        android:inputType="none"
-                        android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+                        android:inputType="none"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
@@ -107,7 +116,7 @@
                         android:hint="Kilometraje">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campo_kilometraje"
+                            android:id="@+id/campoKilometraje"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
@@ -123,7 +132,7 @@
                         android:hint="Próximo KM">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campo_proximo_km"
+                            android:id="@+id/campoProximoKm"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
@@ -136,10 +145,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Costo (S/)">
+                    android:hint="Costo Total"
+                    app:prefixText="S/ ">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campo_costo"
+                        android:id="@+id/campoCosto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
@@ -151,10 +161,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Taller / Lugar">
+                    android:hint="Taller / Lugar"
+                    app:startIconDrawable="@android:drawable/ic_menu_mapmode">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campo_taller"
+                        android:id="@+id/campoTaller"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
@@ -169,16 +180,17 @@
                     android:hint="Observaciones">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campo_observaciones"
+                        android:id="@+id/campoObservaciones"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
-                        android:inputType="textMultiLine"
-                        android:minLines="2"/>
+                        android:inputType="textCapSentences"
+                        android:gravity="top"
+                        android:lines="3"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btn_guardar_mantenimiento"
+                    android:id="@+id/btnGuardarMantenimiento"
                     style="@style/diseñoBoton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

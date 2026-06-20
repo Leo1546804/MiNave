@@ -1,7 +1,9 @@
 package com.example.minave.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minave.databinding.ItemMantenimientoBinding
 import com.example.minave.modelos.Mantenimiento
@@ -13,34 +15,50 @@ class MantenimientoAdapter(
     private val alEliminar: (Mantenimiento) -> Unit
 ) : RecyclerView.Adapter<MantenimientoAdapter.MantenimientoViewHolder>() {
 
-    inner class MantenimientoViewHolder(val vinculo: ItemMantenimientoBinding) : 
-        RecyclerView.ViewHolder(vinculo.root)
+    inner class MantenimientoViewHolder(val binding: ItemMantenimientoBinding) : 
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MantenimientoViewHolder {
-        val inflador = LayoutInflater.from(parent.context)
-        val vinculo = ItemMantenimientoBinding.inflate(inflador, parent, false)
-        return MantenimientoViewHolder(vinculo)
+        val binding = ItemMantenimientoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MantenimientoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MantenimientoViewHolder, position: Int) {
         val mantenimiento = listaMantenimientos[position]
         
-        with(holder.vinculo) {
+        with(holder.binding) {
             txtItemTipo.text = mantenimiento.tipoMantenimiento
-            txtItemFecha.text = "Fecha: ${mantenimiento.fecha}"
+            txtItemTaller.text = mantenimiento.taller
+            txtItemFecha.text = mantenimiento.fecha
             txtItemCosto.text = String.format(Locale.getDefault(), "S/ %.2f", mantenimiento.costo)
-            txtItemKm.text = "KM: ${mantenimiento.kilometraje}"
+            txtItemKm.text = "Km: ${mantenimiento.kilometraje}"
             txtItemProximoKm.text = "Próximo: ${mantenimiento.proximoKilometraje}"
-            txtItemTaller.text = "Taller: ${mantenimiento.taller}"
-            txtItemObservaciones.text = "Obs: ${mantenimiento.observaciones}"
 
-            // Botones de acción
-            btnEditarItem.setOnClickListener { alEditar(mantenimiento) }
-            btnEliminarItem.setOnClickListener { alEliminar(mantenimiento) }
-            
-            // También permitimos click en todo el item para editar (opcional)
-            root.setOnClickListener { alEditar(mantenimiento) }
+            btnMenuOpcionesMantenimiento.setOnClickListener { vista ->
+                mostrarMenu(vista, mantenimiento)
+            }
         }
+    }
+
+    private fun mostrarMenu(view: View, mantenimiento: Mantenimiento) {
+        val popup = PopupMenu(view.context, view)
+        popup.menu.add("Editar")
+        popup.menu.add("Eliminar")
+        
+        popup.setOnMenuItemClickListener { item ->
+            when (item.title) {
+                "Editar" -> {
+                    alEditar(mantenimiento)
+                    true
+                }
+                "Eliminar" -> {
+                    alEliminar(mantenimiento)
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
     }
 
     override fun getItemCount(): Int = listaMantenimientos.size

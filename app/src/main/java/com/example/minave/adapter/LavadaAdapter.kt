@@ -29,6 +29,7 @@ class LavadaAdapter(
             tvLugarLavado.text = lavada.lugar
             tvFechaLavado.text = lavada.fecha
             tvCostoLavado.text = "S/ ${String.format("%.2f", lavada.costo)}"
+            tvObservacionesLavada.text = lavada.observaciones.ifEmpty { "Servicio de limpieza vehicular" }
 
             btnMenuOpcionesLavada.setOnClickListener {
                 mostrarMenu(it, lavada)

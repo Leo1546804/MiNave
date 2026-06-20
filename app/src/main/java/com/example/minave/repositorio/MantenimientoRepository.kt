@@ -48,7 +48,6 @@ class MantenimientoRepository(contexto: Context) {
             SELECT id, id_vehiculo, tipo_mantenimiento, fecha, kilometraje, proximo_kilometraje, costo, taller, observaciones 
             FROM mantenimiento 
             WHERE id_vehiculo = ?
-            ORDER BY id DESC
         """.trimIndent()
 
         val cursor = db.rawQuery(consulta, arrayOf(idVehiculo.toString()))
@@ -96,5 +95,17 @@ class MantenimientoRepository(contexto: Context) {
         val resultado = db.delete("mantenimiento", "id = ?", arrayOf(id.toString()))
         db.close()
         return resultado
+    }
+
+    fun obtenerGastoTotalPorVehiculo(idVehiculo: Int): Double {
+        var total = 0.0
+        val db = ayudante.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(costo) FROM mantenimiento WHERE id_vehiculo = ?", arrayOf(idVehiculo.toString()))
+
+        if (cursor.moveToFirst()) {
+            total = cursor.getDouble(0)
+        }
+        cursor.close()
+        return total
     }
 }

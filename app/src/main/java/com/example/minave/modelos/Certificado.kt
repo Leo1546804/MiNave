@@ -7,5 +7,6 @@ data class Certificado(
     val fechaEmision: String,
     val fechaVencimiento: String,
     val empresaEmisora: String,
+    val costo: Double = 0.0,
     val observaciones: String
 )
