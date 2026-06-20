@@ -98,7 +98,8 @@ class RegistrarMantenimientoActivity : AppCompatActivity() {
         }
 
         if (exito) {
-            Toast.makeText(this, "¡Registro guardado!", Toast.LENGTH_SHORT).show()
+            val mensaje = if (modoEdicion) "Mantenimiento actualizado con éxito" else "Mantenimiento registrado con éxito"
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             finish()
         } else {
             Toast.makeText(this, "Error al guardar en la base de datos", Toast.LENGTH_SHORT).show()

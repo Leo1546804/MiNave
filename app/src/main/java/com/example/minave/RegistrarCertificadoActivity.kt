@@ -31,6 +31,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
             modoEdicion = bundle.getBoolean("modo_edicion", false)
             if (modoEdicion) {
                 binding.txtTituloCertificado.text = "Editar Certificado"
+                binding.btnGuardarCertificado.text = "Actualizar Registro"
                 idCertificadoEditar = bundle.getInt("id_certificado", -1)
                 idVehiculoRelacionado = bundle.getInt("id_vehiculo", -1)
                 
@@ -94,7 +95,8 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
             }
 
             if (exito) {
-                Toast.makeText(this, "Certificado guardado con éxito", Toast.LENGTH_SHORT).show()
+                val mensaje = if (modoEdicion) "Certificado actualizado con éxito" else "Certificado registrado con éxito"
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "Error: Asegúrate de tener un vehículo activo en Inicio", Toast.LENGTH_LONG).show()
