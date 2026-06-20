@@ -33,6 +33,19 @@ class LoginActivity : AppCompatActivity() {
                 val esValido = usuarioRepo.validarIngreso(correoIntroducido, contrasenaIntroducida)
 
                 if(esValido){
+
+                    // llamamos a la funcion obtener por correo del repositorio
+                    val idUsuarioReal = usuarioRepo.obtenerIdPorCorreo(correoIntroducido)
+
+                    // abrimos el archivo fisico que android guardará oculto en la memoria del telefono
+                    val preferencias = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
+                    // damos permiso para escribir dentro de este archivo
+                    val editor = preferencias.edit()
+                    // etiqueta clave - valor
+                    editor.putInt("id_usuario_conectado", idUsuarioReal)
+                    //guardar cambios
+                    editor.apply()
+
                     Toast.makeText(this, "¡Ingreso correcto! Bienvenido", Toast.LENGTH_SHORT).show()
 
                     // si el usuario existe, ingresamos a la app

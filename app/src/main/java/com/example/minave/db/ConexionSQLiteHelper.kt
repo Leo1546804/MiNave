@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNaveDB.db", null, 1) {
+class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNaveDB.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""
@@ -20,7 +20,7 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
 
         db.execSQL("""
             CREATE TABLE vehiculos(
-            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 placa TEXT,
                 marca TEXT,
                 modelo TEXT,
@@ -31,9 +31,22 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
                 FOREIGN KEY(id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
             )
         """.trimIndent())
+
+        db.execSQL("""
+            CREATE TABLE combustible (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                id_vehiculo INTEGER,
+                fecha TEXT,
+                litros REAL,
+                costo REAL,
+                observaciones TEXT,
+                FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
+            )
+        """.trimIndent())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS combustible")
         db.execSQL("DROP TABLE IF EXISTS vehiculos")
         db.execSQL("DROP TABLE IF EXISTS usuarios")
         onCreate(db)
@@ -41,7 +54,7 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
 
     override fun onOpen(db: SQLiteDatabase) {
         super.onOpen(db)
-        // Truco técnico: Activamos el soporte de Llaves Foráneas en SQLite nativo
+        // Activamos el soporte de Llaves Foráneas en SQLite nativo
         db.setForeignKeyConstraintsEnabled(true)
     }
 }
