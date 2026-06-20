@@ -4,9 +4,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNaveDB.db", null, 2) {
+class ConexionSQLiteHelper(context: Context) :
+    SQLiteOpenHelper(context, "MiNaveDB.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
+
         // Tabla de Usuarios
         db.execSQL("""
             CREATE TABLE usuarios (
@@ -49,12 +51,28 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
                 FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
             )
         """.trimIndent())
+
+        // Tabla de Certificados
+        db.execSQL("""
+            CREATE TABLE certificado (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                id_vehiculo INTEGER,
+                tipo_documento TEXT,
+                fecha_emision TEXT,
+                fecha_vencimiento TEXT,
+                empresa_emisora TEXT,
+                observaciones TEXT,
+                FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
+            )
+        """.trimIndent())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+
         if (oldVersion < 2) {
+
             db.execSQL("""
-                CREATE TABLE mantenimiento (
+                CREATE TABLE IF NOT EXISTS mantenimiento (
                     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     id_vehiculo INTEGER NOT NULL,
                     tipo_mantenimiento TEXT,
@@ -63,6 +81,19 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
                     proximo_kilometraje INTEGER,
                     costo REAL,
                     taller TEXT,
+                    observaciones TEXT,
+                    FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
+                )
+            """.trimIndent())
+
+            db.execSQL("""
+                CREATE TABLE IF NOT EXISTS certificado (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    id_vehiculo INTEGER,
+                    tipo_documento TEXT,
+                    fecha_emision TEXT,
+                    fecha_vencimiento TEXT,
+                    empresa_emisora TEXT,
                     observaciones TEXT,
                     FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
                 )
