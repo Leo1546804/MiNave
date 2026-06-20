@@ -1,59 +1,81 @@
 package com.example.minave
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.minave.adapter.CertificadoAdapter
+import com.example.minave.databinding.FragmentCertificadosBinding
+import com.example.minave.modelos.Certificado
+import com.example.minave.repositorio.CertificadoRepository
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CertificadosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CertificadosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _vinculo: FragmentCertificadosBinding? = null
+    private val vinculo get() = _vinculo!!
+
+    private lateinit var repositorioCertificado: CertificadoRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_certificados, container, false)
+    ): View {
+        _vinculo = FragmentCertificadosBinding.inflate(inflater, container, false)
+        return vinculo.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CertificadosFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CertificadosFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(vista: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(vista, savedInstanceState)
+
+        repositorioCertificado = CertificadoRepository(requireContext())
+        vinculo.rvCertificados.layoutManager = LinearLayoutManager(requireContext())
+
+        vinculo.btnAgregarCertificado.setOnClickListener {
+            val intencion = Intent(requireContext(), RegistrarCertificadoActivity::class.java)
+            startActivity(intencion)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refrescarListaCertificados()
+    }
+
+    private fun refrescarListaCertificados() {
+        val listaCertificados = repositorioCertificado.listar()
+        vinculo.rvCertificados.adapter = CertificadoAdapter(listaCertificados) { certificado, opcion ->
+            when (opcion) {
+                "Editar" -> {
+                    val intencion = Intent(requireContext(), RegistrarCertificadoActivity::class.java)
+                    intencion.putExtra("modo_edicion", true)
+                    intencion.putExtra("id_certificado", certificado.id ?: 0)
+                    intencion.putExtra("id_vehiculo", certificado.idVehiculo)
+                    intencion.putExtra("tipo", certificado.tipoDocumento)
+                    intencion.putExtra("empresa", certificado.empresaEmisora)
+                    intencion.putExtra("emision", certificado.fechaEmision)
+                    intencion.putExtra("vencimiento", certificado.fechaVencimiento)
+                    intencion.putExtra("observaciones", certificado.observaciones)
+                    startActivity(intencion)
+                }
+                "Eliminar" -> {
+                    val seElimino = repositorioCertificado.eliminar(certificado.id ?: 0)
+                    if (seElimino) {
+                        Toast.makeText(requireContext(), "Certificado eliminado", Toast.LENGTH_SHORT).show()
+                        refrescarListaCertificados()
+                    } else {
+                        Toast.makeText(requireContext(), "No se pudo eliminar", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _vinculo = null
     }
 }

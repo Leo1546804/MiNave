@@ -31,9 +31,23 @@ class ConexionSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "MiNave
                 FOREIGN KEY(id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
             )
         """.trimIndent())
+
+        db.execSQL("""
+            CREATE TABLE certificado (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                id_vehiculo INTEGER,
+                tipo_documento TEXT,
+                fecha_emision TEXT,
+                fecha_vencimiento TEXT,
+                empresa_emisora TEXT,
+                observaciones TEXT,
+                FOREIGN KEY(id_vehiculo) REFERENCES vehiculos(id) ON DELETE CASCADE
+            )
+        """.trimIndent())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS certificado")
         db.execSQL("DROP TABLE IF EXISTS vehiculos")
         db.execSQL("DROP TABLE IF EXISTS usuarios")
         onCreate(db)
