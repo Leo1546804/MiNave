@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Cabecera de la pantalla con tipografía destacada -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
             android:textStyle="bold"
             android:letterSpacing="-0.01"/>
 
+        <!-- Contenedor de lista con scroll optimizado y padding inferior para no ocultar el último item tras el FAB -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mantenimientos"
             android:layout_width="match_parent"
@@ -35,6 +37,7 @@
             tools:listitem="@layout/item_mantenimiento" />
     </LinearLayout>
 
+    <!-- Acción principal: Registrar nuevo servicio de mantenimiento -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_agregar_mantenimiento"
         android:layout_width="wrap_content"
