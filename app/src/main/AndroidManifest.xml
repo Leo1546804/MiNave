@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiNave">
         <activity
+            android:name=".RegistrarCombustibleActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistrarVehiculoActivity"
             android:exported="false" />
         <activity

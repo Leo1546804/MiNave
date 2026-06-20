@@ -1,59 +1,82 @@
 package com.example.minave
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.minave.adapter.CombustibleAdapter
+import com.example.minave.databinding.FragmentCombustibleBinding
+import com.example.minave.repositorio.CombustibleRepository
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CombustibleFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CombustibleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentCombustibleBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var combustibleRepo: CombustibleRepository
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentCombustibleBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        combustibleRepo = CombustibleRepository(requireContext())
+        binding.rvCombustible.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.btnAgregarCombustible.setOnClickListener {
+            val intencion = Intent(requireContext(), RegistrarCombustibleActivity::class.java)
+            startActivity(intencion)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_combustible, container, false)
+    override fun onResume() {
+        super.onResume()
+        actualizarLista()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CombustibleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CombustibleFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun actualizarLista() {
+        val preferencias = requireContext().getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+        val idVehiculoActivo = preferencias.getInt("id_vehiculo_activo", -1)
+
+        if (idVehiculoActivo != -1) {
+            val listaRegistros = combustibleRepo.obtenerRegistrosPorVehiculo(idVehiculoActivo)
+            
+            binding.rvCombustible.adapter = CombustibleAdapter(listaRegistros) { registro, opcion ->
+                when (opcion) {
+                    "Editar" -> {
+                        val intencion = Intent(requireContext(), RegistrarCombustibleActivity::class.java)
+                        intencion.putExtra("modo_edicion", true)
+                        intencion.putExtra("id_registro", registro.id)
+                        intencion.putExtra("fecha", registro.fecha)
+                        intencion.putExtra("litros", registro.litros)
+                        intencion.putExtra("costo", registro.costo)
+                        intencion.putExtra("observaciones", registro.observaciones)
+                        startActivity(intencion)
+                    }
+                    "Eliminar" -> {
+                        val exito = combustibleRepo.eliminarCombustible(registro.id ?: 0)
+                        if (exito) {
+                            Toast.makeText(requireContext(), "Registro eliminado", Toast.LENGTH_SHORT).show()
+                            actualizarLista()
+                        }
+                    }
                 }
             }
+        } else {
+            Toast.makeText(requireContext(), "No hay un vehículo activo seleccionado", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
