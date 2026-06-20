@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minave.databinding.ItemMantenimientoBinding
 import com.example.minave.modelos.Mantenimiento
+import java.util.Locale
 
 class MantenimientoAdapter(
     private var listaMantenimientos: List<Mantenimiento>,
-    private val alHacerClick: (Mantenimiento) -> Unit
+    private val alEditar: (Mantenimiento) -> Unit,
+    private val alEliminar: (Mantenimiento) -> Unit
 ) : RecyclerView.Adapter<MantenimientoAdapter.MantenimientoViewHolder>() {
 
     inner class MantenimientoViewHolder(val vinculo: ItemMantenimientoBinding) : 
@@ -26,13 +28,18 @@ class MantenimientoAdapter(
         with(holder.vinculo) {
             txtItemTipo.text = mantenimiento.tipoMantenimiento
             txtItemFecha.text = "Fecha: ${mantenimiento.fecha}"
-            txtItemCosto.text = "S/ ${String.format("%.2f", mantenimiento.costo)}"
+            txtItemCosto.text = String.format(Locale.getDefault(), "S/ %.2f", mantenimiento.costo)
             txtItemKm.text = "KM: ${mantenimiento.kilometraje}"
             txtItemProximoKm.text = "Próximo: ${mantenimiento.proximoKilometraje}"
             txtItemTaller.text = "Taller: ${mantenimiento.taller}"
             txtItemObservaciones.text = "Obs: ${mantenimiento.observaciones}"
 
-            root.setOnClickListener { alHacerClick(mantenimiento) }
+            // Botones de acción
+            btnEditarItem.setOnClickListener { alEditar(mantenimiento) }
+            btnEliminarItem.setOnClickListener { alEliminar(mantenimiento) }
+            
+            // También permitimos click en todo el item para editar (opcional)
+            root.setOnClickListener { alEditar(mantenimiento) }
         }
     }
 

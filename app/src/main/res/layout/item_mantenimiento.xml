@@ -23,21 +23,50 @@
                 android:id="@+id/txt_item_tipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/layout_acciones"
+                android:layout_alignParentStart="true"
                 android:text="Cambio de Aceite"
                 android:textColor="@color/azul_principal"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txt_item_costo"
+            <LinearLayout
+                android:id="@+id/layout_acciones"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="S/ 150.00"
-                android:textColor="@color/negro_texto"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_editar_item"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_edit"
+                    app:tint="@color/azul_principal"
+                    android:contentDescription="Editar" />
+
+                <ImageButton
+                    android:id="@+id/btn_eliminar_item"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_delete"
+                    app:tint="#E53935"
+                    android:contentDescription="Eliminar" />
+            </LinearLayout>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_item_costo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="S/ 150.00"
+            android:textColor="@color/negro_texto"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_item_fecha"

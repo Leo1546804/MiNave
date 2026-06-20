@@ -9,10 +9,6 @@ import com.example.minave.modelos.Mantenimiento
 import com.example.minave.repositorio.MantenimientoRepository
 import java.util.*
 
-/**
- * Actividad para registrar o editar un mantenimiento de vehículo.
- * Implementa un selector de fecha (DatePicker) para el campo fecha.
- */
 class RegistrarMantenimientoActivity : AppCompatActivity() {
 
     private lateinit var vinculo: ActivityRegistrarMantenimientoBinding
@@ -54,9 +50,6 @@ class RegistrarMantenimientoActivity : AppCompatActivity() {
         vinculo.btnGuardarMantenimiento.text = "Actualizar Registro"
     }
 
-    /**
-     * Muestra un diálogo de calendario para seleccionar una fecha.
-     */
     private fun mostrarSelectorFecha() {
         val calendario = Calendar.getInstance()
         val anio = calendario.get(Calendar.YEAR)
