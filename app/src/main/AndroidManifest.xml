@@ -18,6 +18,9 @@
             android:name=".RegistrarVehiculoActivity"
             android:exported="false" />
         <activity
+            android:name=".RegistrarCertificadoActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistroActivity"
             android:exported="false" />
         <activity
