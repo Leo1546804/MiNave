@@ -150,7 +150,7 @@
                 app:cardCornerRadius="12dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:gravity="center">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💰 Total gastado" android:textColor="#C8E6C9" android:textSize="14sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#FFFFFF" android:textSize="28sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                    <TextView android:id="@+id/txtTotalGastado" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#FFFFFF" android:textSize="28sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -163,28 +163,28 @@
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⛽ Combustible" android:textColor="#616161" android:textSize="14sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        <TextView android:id="@+id/txtGastoCombustible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔧 Mantenimientos" android:textColor="#616161" android:textSize="14sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        <TextView android:id="@+id/txtGastoMantenimiento" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🧽 Lavadas" android:textColor="#616161" android:textSize="14sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        <TextView android:id="@+id/txtGastoLavadas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📄 Documentos" android:textColor="#616161" android:textSize="14sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                        <TextView android:id="@+id/txtGastoDocumentos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

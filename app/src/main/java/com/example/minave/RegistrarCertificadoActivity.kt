@@ -31,6 +31,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
             modoEdicion = bundle.getBoolean("modo_edicion", false)
             if (modoEdicion) {
                 binding.txtTituloCertificado.text = "Editar Certificado"
+                binding.btnGuardarCertificado.text = "Actualizar Registro"
                 idCertificadoEditar = bundle.getInt("id_certificado", -1)
                 idVehiculoRelacionado = bundle.getInt("id_vehiculo", -1)
                 
@@ -38,6 +39,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
                 binding.campoEmpresaEmisora.setText(bundle.getString("empresa", ""))
                 binding.campoFechaEmision.setText(bundle.getString("emision", ""))
                 binding.campoFechaVencimiento.setText(bundle.getString("vencimiento", ""))
+                binding.campoCostoCertificado.setText(bundle.getDouble("costo", 0.0).toString())
                 binding.campoObservaciones.setText(bundle.getString("observaciones", ""))
             }
         }
@@ -74,16 +76,18 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
         val empresa = binding.campoEmpresaEmisora.text.toString()
         val emision = binding.campoFechaEmision.text.toString()
         val vencimiento = binding.campoFechaVencimiento.text.toString()
+        val costoStr = binding.campoCostoCertificado.text.toString()
         val observaciones = binding.campoObservaciones.text.toString()
 
         if (tipo.isNotEmpty()) {
             val certificado = Certificado(
                 id = if (modoEdicion) idCertificadoEditar else null,
-                idVehiculo = idVehiculoRelacionado, // El repo lo sobrescribe si es inserción, pero lo mantenemos para actualización
+                idVehiculo = idVehiculoRelacionado,
                 tipoDocumento = tipo,
                 fechaEmision = emision,
                 fechaVencimiento = vencimiento,
                 empresaEmisora = empresa,
+                costo = costoStr.toDoubleOrNull() ?: 0.0,
                 observaciones = observaciones
             )
 
@@ -94,7 +98,8 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
             }
 
             if (exito) {
-                Toast.makeText(this, "Certificado guardado con éxito", Toast.LENGTH_SHORT).show()
+                val mensaje = if (modoEdicion) "Certificado actualizado con éxito" else "Certificado registrado con éxito"
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "Error: Asegúrate de tener un vehículo activo en Inicio", Toast.LENGTH_LONG).show()

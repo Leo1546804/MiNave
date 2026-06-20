@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@drawable/fondo_app">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,18 +17,19 @@
         android:paddingEnd="16dp">
 
         <ImageButton
-            android:id="@+id/btnVolverCertificado"
+            android:id="@+id/btnVolver"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_revert"
-            app:tint="@color/azul_principal" />
+            app:tint="@color/azul_principal"
+            android:contentDescription="Volver" />
 
         <TextView
-            android:id="@+id/txtTituloCertificado"
+            android:id="@+id/txtTituloMantenimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrar Certificado"
+            android:text="Registrar Mantenimiento"
             android:textColor="@color/azul_principal"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Detalles del Documento"
+                    android:text="Detalles Técnicos"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/negro_texto"
@@ -71,15 +71,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Tipo de Documento"
-                    app:startIconDrawable="@android:drawable/ic_menu_agenda">
+                    android:hint="Tipo de Mantenimiento"
+                    app:startIconDrawable="@android:drawable/ic_menu_manage">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoTipoDocumento"
+                        android:id="@+id/campoTipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
-                        android:inputType="textCapWords"/>
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -87,23 +87,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Empresa Emisora"
-                    app:startIconDrawable="@android:drawable/ic_menu_myplaces">
+                    android:hint="Fecha de Servicio"
+                    app:startIconDrawable="@android:drawable/ic_menu_my_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoEmpresaEmisora"
+                        android:id="@+id/campoFecha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
-                        android:inputType="textCapWords"/>
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:inputType="none"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:baselineAligned="false">
+                    android:baselineAligned="false"
+                    android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/diseñoInput"
@@ -111,16 +113,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
-                        android:hint="Emisión">
+                        android:hint="Kilometraje">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campoFechaEmision"
+                            android:id="@+id/campoKilometraje"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
-                            android:focusable="false"
-                            android:clickable="true"
-                            android:inputType="none"/>
+                            android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -129,18 +129,15 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:hint="Vence">
+                        android:hint="Próximo KM">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campoFechaVencimiento"
+                            android:id="@+id/campoProximoKm"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
-                            android:focusable="false"
-                            android:clickable="true"
-                            android:inputType="none"/>
+                            android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -148,15 +145,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Costo"
+                    android:hint="Costo Total"
                     app:prefixText="S/ ">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoCostoCertificado"
+                        android:id="@+id/campoCosto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
                         android:inputType="numberDecimal"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/diseñoInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Taller / Lugar"
+                    app:startIconDrawable="@android:drawable/ic_menu_mapmode">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/campoTaller"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/negro_texto"
+                        android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -177,11 +190,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnGuardarCertificado"
+                    android:id="@+id/btnGuardarMantenimiento"
                     style="@style/diseñoBoton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guardar Certificado"
+                    android:text="Guardar Registro"
                     android:textAllCaps="false"
                     android:letterSpacing="0.05"
                     android:elevation="4dp"/>

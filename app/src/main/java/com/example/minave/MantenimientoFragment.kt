@@ -1,59 +1,110 @@
 package com.example.minave
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.minave.adapter.MantenimientoAdapter
+import com.example.minave.databinding.FragmentMantenimientoBinding
+import com.example.minave.modelos.Mantenimiento
+import com.example.minave.repositorio.MantenimientoRepository
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MantenimientoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MantenimientoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _vinculo: FragmentMantenimientoBinding? = null
+    private val vinculo get() = _vinculo!!
+
+    private lateinit var mantenimientoRepo: MantenimientoRepository
+    private lateinit var adaptador: MantenimientoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mantenimiento, container, false)
+    ): View {
+        _vinculo = FragmentMantenimientoBinding.inflate(inflater, container, false)
+        return vinculo.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MantenimientoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MantenimientoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mantenimientoRepo = MantenimientoRepository(requireContext())
+
+        configurarRecyclerView()
+        configurarBotonAccion()
+    }
+
+    private fun configurarRecyclerView() {
+        adaptador = MantenimientoAdapter(
+            listaMantenimientos = emptyList(),
+            alEditar = { mantenimiento -> abrirPantallaEdicion(mantenimiento) },
+            alEliminar = { mantenimiento -> confirmarEliminacion(mantenimiento) }
+        )
+
+        vinculo.rvMantenimientos.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = adaptador
+        }
+    }
+
+    private fun abrirPantallaEdicion(mantenimiento: Mantenimiento) {
+        val intencion = Intent(requireContext(), RegistrarMantenimientoActivity::class.java).apply {
+            putExtra("modo_edicion", true)
+            putExtra("id", mantenimiento.id)
+            putExtra("tipo", mantenimiento.tipoMantenimiento)
+            putExtra("fecha", mantenimiento.fecha)
+            putExtra("km", mantenimiento.kilometraje)
+            putExtra("proximo_km", mantenimiento.proximoKilometraje)
+            putExtra("costo", mantenimiento.costo)
+            putExtra("taller", mantenimiento.taller)
+            putExtra("obs", mantenimiento.observaciones)
+        }
+        startActivity(intencion)
+    }
+
+    private fun confirmarEliminacion(mantenimiento: Mantenimiento) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar Registro")
+            .setMessage("¿Estás seguro de que deseas eliminar este mantenimiento?")
+            .setPositiveButton("Sí, eliminar") { _, _ ->
+                val filasAfectadas = mantenimientoRepo.eliminarMantenimiento(mantenimiento.id)
+                if (filasAfectadas > 0) {
+                    Toast.makeText(requireContext(), "Mantenimiento eliminado", Toast.LENGTH_SHORT).show()
+                    cargarDatosDesdeRepositorio()
+                } else {
+                    Toast.makeText(requireContext(), "Error al eliminar", Toast.LENGTH_SHORT).show()
                 }
             }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun configurarBotonAccion() {
+        vinculo.btnAgregarMantenimiento.setOnClickListener {
+            val intencion = Intent(requireContext(), RegistrarMantenimientoActivity::class.java)
+            intencion.putExtra("modo_edicion", false)
+            startActivity(intencion)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        cargarDatosDesdeRepositorio()
+    }
+
+    private fun cargarDatosDesdeRepositorio() {
+        val lista = mantenimientoRepo.listarMantenimientosPorVehiculo()
+        adaptador.actualizarLista(lista)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _vinculo = null
     }
 }

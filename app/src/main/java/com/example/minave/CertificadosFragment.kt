@@ -58,6 +58,7 @@ class CertificadosFragment : Fragment() {
                     intencion.putExtra("empresa", certificado.empresaEmisora)
                     intencion.putExtra("emision", certificado.fechaEmision)
                     intencion.putExtra("vencimiento", certificado.fechaVencimiento)
+                    intencion.putExtra("costo", certificado.costo)
                     intencion.putExtra("observaciones", certificado.observaciones)
                     startActivity(intencion)
                 }

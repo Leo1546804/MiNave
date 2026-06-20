@@ -24,21 +24,20 @@ class VehiculoAdapter(
 
         holder.vinculoItem.txtMarcaModelo.text = "${nave.marca} ${nave.modelo}"
         holder.vinculoItem.txtPlaca.text = nave.placa.uppercase()
-        holder.vinculoItem.txtDetalles.text = "Año: ${nave.anio} • Color: ${nave.color} • ${nave.tipoCombustible}"
+        holder.vinculoItem.txtColor.text = "Color: ${nave.color}"
+        holder.vinculoItem.txtAnio.text = "Año: ${nave.anio}"
+        holder.vinculoItem.txtTipoCombustible.text = nave.tipoCombustible
 
-        //Al mantener presionado el elemento, abrimos las opciones
-        holder.itemView.setOnLongClickListener { vista ->
-            val menuFlotante = PopupMenu(vista.context, vista)
-            menuFlotante.menu.add("Editar")
-            menuFlotante.menu.add("Eliminar")
+        holder.vinculoItem.btnMenuOpcionesVehiculo.setOnClickListener { vista ->
+            val menu = PopupMenu(vista.context, vista)
+            menu.menu.add("Editar")
+            menu.menu.add("Eliminar")
 
-            menuFlotante.setOnMenuItemClickListener { item ->
-                // le avisamos al fragment que auto se tocó y que se desea hacer
+            menu.setOnMenuItemClickListener { item ->
                 alDarClickOpciones(nave, item.title.toString())
                 true
             }
-            menuFlotante.show()
-            true
+            menu.show()
         }
     }
 

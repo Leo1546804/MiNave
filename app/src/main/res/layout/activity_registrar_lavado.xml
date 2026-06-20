@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@drawable/fondo_app">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +17,7 @@
         android:paddingEnd="16dp">
 
         <ImageButton
-            android:id="@+id/btnVolverCertificado"
+            android:id="@+id/btnVolverLavado"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -26,10 +25,10 @@
             app:tint="@color/azul_principal" />
 
         <TextView
-            android:id="@+id/txtTituloCertificado"
+            android:id="@+id/txtTituloLavado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrar Certificado"
+            android:text="Registrar Lavado"
             android:textColor="@color/azul_principal"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -60,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Detalles del Documento"
+                    android:text="Detalles del Servicio"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/negro_texto"
@@ -71,15 +70,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Tipo de Documento"
+                    android:hint="Tipo de Lavado"
                     app:startIconDrawable="@android:drawable/ic_menu_agenda">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoTipoDocumento"
+                        android:id="@+id/campoTipoLavado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
-                        android:inputType="textCapWords"/>
+                        android:inputType="textCapWords"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -87,11 +87,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Empresa Emisora"
+                    android:hint="Lugar / Establecimiento"
                     app:startIconDrawable="@android:drawable/ic_menu_myplaces">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoEmpresaEmisora"
+                        android:id="@+id/campoLugarLavado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
@@ -111,10 +111,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
-                        android:hint="Emisión">
+                        android:hint="Fecha">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campoFechaEmision"
+                            android:id="@+id/campoFechaLavado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
@@ -129,35 +129,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:hint="Vence">
+                        android:hint="Costo"
+                        app:prefixText="S/ ">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/campoFechaVencimiento"
+                            android:id="@+id/campoCostoLavado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/negro_texto"
-                            android:focusable="false"
-                            android:clickable="true"
-                            android:inputType="none"/>
+                            android:inputType="numberDecimal"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/diseñoInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Costo"
-                    app:prefixText="S/ ">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoCostoCertificado"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/negro_texto"
-                        android:inputType="numberDecimal"/>
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/diseñoInput"
@@ -167,7 +150,7 @@
                     android:hint="Observaciones">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/campoObservaciones"
+                        android:id="@+id/campoObservacionesLavado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/negro_texto"
@@ -177,11 +160,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnGuardarCertificado"
+                    android:id="@+id/btnGuardarLavado"
                     style="@style/diseñoBoton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guardar Certificado"
+                    android:text="Guardar Registro"
                     android:textAllCaps="false"
                     android:letterSpacing="0.05"
                     android:elevation="4dp"/>
