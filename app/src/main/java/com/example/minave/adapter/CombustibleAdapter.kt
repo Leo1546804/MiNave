@@ -25,9 +25,9 @@ class CombustibleAdapter(
         holder.vinculoItem.txtFecha.text = registro.fecha
         holder.vinculoItem.txtCosto.text = "S/ ${String.format("%.2f", registro.costo)}"
         holder.vinculoItem.txtLitros.text = "${registro.litros} Litros"
-        holder.vinculoItem.txtObservaciones.text = registro.observaciones
+        holder.vinculoItem.txtObservaciones.text = if (registro.observaciones.isNullOrBlank()) "Sin observaciones" else registro.observaciones
 
-        holder.itemView.setOnLongClickListener { vista ->
+        holder.vinculoItem.btnMenuOpcionesCombustible.setOnClickListener { vista ->
             val menuFlotante = PopupMenu(vista.context, vista)
             menuFlotante.menu.add("Editar")
             menuFlotante.menu.add("Eliminar")
@@ -37,7 +37,6 @@ class CombustibleAdapter(
                 true
             }
             menuFlotante.show()
-            true
         }
     }
 

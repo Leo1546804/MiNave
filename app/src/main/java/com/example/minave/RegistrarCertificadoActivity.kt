@@ -72,14 +72,16 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
     }
 
     private fun guardarDatos() {
-        val tipo = binding.campoTipoDocumento.text.toString()
-        val empresa = binding.campoEmpresaEmisora.text.toString()
-        val emision = binding.campoFechaEmision.text.toString()
-        val vencimiento = binding.campoFechaVencimiento.text.toString()
-        val costoStr = binding.campoCostoCertificado.text.toString()
-        val observaciones = binding.campoObservaciones.text.toString()
+        val tipo = binding.campoTipoDocumento.text.toString().trim()
+        val empresa = binding.campoEmpresaEmisora.text.toString().trim()
+        val emision = binding.campoFechaEmision.text.toString().trim()
+        val vencimiento = binding.campoFechaVencimiento.text.toString().trim()
+        val costoStr = binding.campoCostoCertificado.text.toString().trim()
+        val observaciones = binding.campoObservaciones.text.toString().trim()
 
         if (tipo.isNotEmpty()) {
+            val valorCosto = costoStr.toDoubleOrNull() ?: 0.0
+            
             val certificado = Certificado(
                 id = if (modoEdicion) idCertificadoEditar else null,
                 idVehiculo = idVehiculoRelacionado,
@@ -87,14 +89,14 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
                 fechaEmision = emision,
                 fechaVencimiento = vencimiento,
                 empresaEmisora = empresa,
-                costo = costoStr.toDoubleOrNull() ?: 0.0,
+                costo = valorCosto,
                 observaciones = observaciones
             )
 
             val exito = if (modoEdicion) {
                 repositorio.actualizar(certificado)
             } else {
-                repositorio.insertar(certificado) > 0
+                repositorio.insertar(certificado) != -1L
             }
 
             if (exito) {

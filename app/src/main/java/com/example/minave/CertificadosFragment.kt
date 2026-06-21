@@ -52,7 +52,7 @@ class CertificadosFragment : Fragment() {
                 "Editar" -> {
                     val intencion = Intent(requireContext(), RegistrarCertificadoActivity::class.java)
                     intencion.putExtra("modo_edicion", true)
-                    intencion.putExtra("id_certificado", certificado.id ?: 0)
+                    intencion.putExtra("id_certificado", certificado.id ?: -1)
                     intencion.putExtra("id_vehiculo", certificado.idVehiculo)
                     intencion.putExtra("tipo", certificado.tipoDocumento)
                     intencion.putExtra("empresa", certificado.empresaEmisora)
@@ -63,12 +63,15 @@ class CertificadosFragment : Fragment() {
                     startActivity(intencion)
                 }
                 "Eliminar" -> {
-                    val seElimino = repositorioCertificado.eliminar(certificado.id ?: 0)
-                    if (seElimino) {
-                        Toast.makeText(requireContext(), "Certificado eliminado", Toast.LENGTH_SHORT).show()
-                        refrescarListaCertificados()
-                    } else {
-                        Toast.makeText(requireContext(), "No se pudo eliminar", Toast.LENGTH_SHORT).show()
+                    val idAEliminar = certificado.id ?: -1
+                    if (idAEliminar != -1) {
+                        val seElimino = repositorioCertificado.eliminar(idAEliminar)
+                        if (seElimino) {
+                            Toast.makeText(requireContext(), "Certificado eliminado", Toast.LENGTH_SHORT).show()
+                            refrescarListaCertificados()
+                        } else {
+                            Toast.makeText(requireContext(), "No se pudo eliminar", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

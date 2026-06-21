@@ -5,14 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import com.example.minave.R
 import com.example.minave.databinding.ItemLavadaBinding
 import com.example.minave.modelos.Lavada
 
 class LavadaAdapter(
     private var listaLavadas: List<Lavada>,
-    private val onEliminar: (Int) -> Unit,
-    private val onEditar: (Lavada) -> Unit
+    private val alDarClickOpciones: (Lavada, String) -> Unit
 ) : RecyclerView.Adapter<LavadaAdapter.LavadaViewHolder>() {
 
     class LavadaViewHolder(val binding: ItemLavadaBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,31 +29,18 @@ class LavadaAdapter(
             tvCostoLavado.text = "S/ ${String.format("%.2f", lavada.costo)}"
             tvObservacionesLavada.text = lavada.observaciones.ifEmpty { "Servicio de limpieza vehicular" }
 
-            btnMenuOpcionesLavada.setOnClickListener {
-                mostrarMenu(it, lavada)
-            }
-        }
-    }
-
-    private fun mostrarMenu(view: View, lavada: Lavada) {
-        val popup = PopupMenu(view.context, view)
-        popup.menu.add("Editar")
-        popup.menu.add("Eliminar")
-        
-        popup.setOnMenuItemClickListener { item ->
-            when (item.title) {
-                "Editar" -> {
-                    onEditar(lavada)
+            btnMenuOpcionesLavada.setOnClickListener { vista ->
+                val popup = PopupMenu(vista.context, vista)
+                popup.menu.add("Editar")
+                popup.menu.add("Eliminar")
+                
+                popup.setOnMenuItemClickListener { item ->
+                    alDarClickOpciones(lavada, item.title.toString())
                     true
                 }
-                "Eliminar" -> {
-                    onEliminar(lavada.id)
-                    true
-                }
-                else -> false
+                popup.show()
             }
         }
-        popup.show()
     }
 
     override fun getItemCount(): Int = listaLavadas.size

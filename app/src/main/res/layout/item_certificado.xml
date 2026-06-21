@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/btnMenuOpciones"
                 android:layout_alignParentStart="true"
-                android:text="SOAT / Revisión Técnica"
+                android:text="Certificado"
                 android:textColor="@color/negro_texto"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -53,23 +53,17 @@
             android:textColor="@color/gris_subtitulo"
             android:textSize="14sp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvObservacionesCertificado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/tvObservacionesCertificado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Documentación legal vigente"
-                android:textColor="@color/gris_subtitulo"
-                android:textSize="13sp"
-                android:fontStyle="italic"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-        </LinearLayout>
+            android:layout_marginTop="8dp"
+            android:text="Sin observaciones"
+            android:textColor="@color/gris_subtitulo"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <View
             android:layout_width="match_parent"
@@ -83,14 +77,29 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tvFechaEmision"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Emitido: 10/01/2024"
-                android:textColor="@color/gris_subtitulo"
-                android:textSize="13sp" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFechaEmision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Emitido: 10/01/2024"
+                    android:textColor="@color/gris_subtitulo"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvVencimiento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vence: 10/01/2025"
+                    android:textColor="#EF4444"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvCostoCertificado"
@@ -98,17 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="S/ 0.00"
                 android:textColor="@color/azul_principal"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="12dp"/>
-
-            <TextView
-                android:id="@+id/tvVencimiento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vence: 10/01/2025"
-                android:textColor="#EF4444"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 

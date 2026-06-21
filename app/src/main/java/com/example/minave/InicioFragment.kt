@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.minave.databinding.FragmentInicioBinding
 import com.example.minave.repositorio.CertificadoRepository
+import com.example.minave.repositorio.CombustibleRepository
 import com.example.minave.repositorio.LavadaRepository
 import com.example.minave.repositorio.MantenimientoRepository
 import com.example.minave.repositorio.VehiculoRepository
@@ -24,6 +25,7 @@ class InicioFragment : Fragment() {
     private lateinit var lavadaRepo: LavadaRepository
     private lateinit var mantenimientoRepo: MantenimientoRepository
     private lateinit var certificadoRepo: CertificadoRepository
+    private lateinit var combustibleRepo: CombustibleRepository
 
 
 
@@ -40,6 +42,7 @@ class InicioFragment : Fragment() {
         lavadaRepo = LavadaRepository(requireContext())
         mantenimientoRepo = MantenimientoRepository(requireContext())
         certificadoRepo = CertificadoRepository(requireContext())
+        combustibleRepo = CombustibleRepository(requireContext())
 
         // Acción del botón del estado vacio, este boton solo se mostrara en el fragment cuando no haya un vehiculo registrado
         binding.btnIrARegistrar.setOnClickListener {
@@ -158,10 +161,12 @@ class InicioFragment : Fragment() {
         val totalLavadas = lavadaRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
         val totalMantenimiento = mantenimientoRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
         val totalCertificados = certificadoRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
+        val totalCombustible = combustibleRepo.obtenerGastoTotalPorVehiculo(idVehiculo)
 
-        val granTotal = totalLavadas + totalMantenimiento + totalCertificados
+        val granTotal = totalLavadas + totalMantenimiento + totalCertificados + totalCombustible
 
         binding.txtTotalGastado.text = String.format("S/ %.2f", granTotal)
+        binding.txtGastoCombustible.text = String.format("S/ %.2f", totalCombustible)
         binding.txtGastoMantenimiento.text = String.format("S/ %.2f", totalMantenimiento)
         binding.txtGastoLavadas.text = String.format("S/ %.2f", totalLavadas)
         binding.txtGastoDocumentos.text = String.format("S/ %.2f", totalCertificados)

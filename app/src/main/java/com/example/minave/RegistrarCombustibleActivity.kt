@@ -97,7 +97,8 @@ class RegistrarCombustibleActivity : AppCompatActivity() {
         }
 
         if (exito) {
-            Toast.makeText(this, "¡Registro guardado con éxito!", Toast.LENGTH_SHORT).show()
+            val mensaje = if (modoEdicion) "¡Registro actualizado con éxito!" else "¡Registro guardado con éxito!"
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             finish()
         } else {
             Toast.makeText(this, "Error al guardar en la base de datos", Toast.LENGTH_SHORT).show()
