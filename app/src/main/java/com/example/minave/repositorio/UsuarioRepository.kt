@@ -70,4 +70,26 @@ class UsuarioRepository(contexto: Context) {
         return idEncontrado
     }
 
+    fun obtenerUsuarioPorId(id: Int): Usuario? {
+        val db: SQLiteDatabase = ayudante.readableDatabase
+        var usuarioEncontrado: Usuario? = null
+
+        val consulta = "SELECT * FROM usuarios WHERE id = ?"
+        val parametros = arrayOf(id.toString())
+        val cursor = db.rawQuery(consulta, parametros)
+
+        if(cursor.moveToFirst()){
+            usuarioEncontrado = Usuario(
+                id = cursor.getInt(0),
+                nombre = cursor.getString(1),
+                apellido = cursor.getString(2),
+                correo = cursor.getString(3),
+                contrasenia = cursor.getString(4),
+                fechaRegistro = cursor.getString(5)
+            )
+        }
+        cursor.close()
+        return usuarioEncontrado
+    }
+
 }

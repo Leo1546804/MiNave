@@ -22,12 +22,13 @@
             android:title="Documentos y Certificados" />
     </group>
 
-    <item android:title="Cuenta">
-        <menu>
-            <item
-                android:id="@+id/nav_cerrar_sesion"
-                android:title="Cerrar Sesión" />
-        </menu>
-    </item>
+    <group android:id="@+id/grupo_cuenta">
+        <item
+            android:id="@+id/nav_cuenta"
+            android:title="Mi Perfil" />
+        <item
+            android:id="@+id/nav_cerrar_sesion"
+            android:title="Cerrar Sesión" />
+    </group>
 
 </menu>

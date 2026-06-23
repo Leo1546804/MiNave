@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_lavadas -> cambiarFragmento(LavadasFragment())
 
                 R.id.nav_certificados -> cambiarFragmento(CertificadosFragment())
+                R.id.nav_cuenta -> cambiarFragmento(CuentaFragment())
                 R.id.nav_cerrar_sesion -> {
                     Toast.makeText(this, "Cerrando Sesión", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
