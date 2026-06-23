@@ -34,7 +34,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // 1. ACTIVAMOS VIEWBINDING (Indispensable para enlazar el XML con Kotlin sin errores)
     viewBinding {
         enable = true
     }
