@@ -1,6 +1,5 @@
-package com.example.minave
+package com.example.minave.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.minave.ui.fragments.MantenimientoFragment
+import com.example.minave.R
+import com.example.minave.utils.Utilidades
+import com.example.minave.ui.fragments.VehiculoFragment
 import com.example.minave.databinding.ActivityMainBinding
+import com.example.minave.ui.activities.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,11 +61,19 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_certificados -> cambiarFragmento(CertificadosFragment())
                 R.id.nav_cuenta -> cambiarFragmento(CuentaFragment())
                 R.id.nav_cerrar_sesion -> {
-                    Toast.makeText(this, "Cerrando Sesión", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
+                    Utilidades.mostrarDialogoConfirmacion(
+                        contexto = this,
+                        titulo = "Cerrar Sesión",
+                        mensaje = "¿Estás seguro de que deseas salir de tu cuenta?",
+                        textoBotonConfirmar = "Cerrar Sesión",
+                        colorBoton = R.color.azul_principal
+                    ) {
+                        Toast.makeText(this, "Cerrando Sesión", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
             // Al hacer clic en cualquier opción, cerramos el menú lateral con estilo
@@ -75,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 super.onDrawerOpened(drawerView)
 
                 //Revisamos la caja fuerte para ver si hay carro activo
-                val preferencias = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+                val preferencias = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
                 val tieneVehiculoActivo = preferencias.getInt("id_vehiculo_activo", -1) != -1
 
                 val menu = binding.navegacionLateral.menu

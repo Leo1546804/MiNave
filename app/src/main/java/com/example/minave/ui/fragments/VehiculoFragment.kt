@@ -1,17 +1,19 @@
-package com.example.minave
+package com.example.minave.ui.fragments
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.minave.utils.Utilidades
 import com.example.minave.adapter.VehiculoAdapter
 import com.example.minave.databinding.FragmentVehiculoBinding
 import com.example.minave.repositorio.VehiculoRepository
+import com.example.minave.ui.activities.RegistrarVehiculoActivity
 
 class VehiculoFragment : Fragment() {
 
@@ -57,10 +59,11 @@ class VehiculoFragment : Fragment() {
             val listaNaves = vehiculoRepo.obtenerVehiculosPorUsuario(idUsuarioSesion)
 
             //inflamos el adaptador pasandole la listaa y escuchando la opcion que presionó
-            binding.rvVehiculos.adapter = VehiculoAdapter(listaNaves){ nave, opcion ->
-                when(opcion){
+            binding.rvVehiculos.adapter = VehiculoAdapter(listaNaves) { nave, opcion ->
+                when (opcion) {
                     "Editar" -> {
-                        val intencion = Intent(requireContext(), RegistrarVehiculoActivity::class.java )
+                        val intencion =
+                            Intent(requireContext(), RegistrarVehiculoActivity::class.java)
 
                         //Metemos todos los datos del carro actual en la maleta del Intent
                         intencion.putExtra("modo_edicion", true)
@@ -74,14 +77,30 @@ class VehiculoFragment : Fragment() {
 
                         startActivity(intencion)
                     }
-                    "Eliminar" ->{
-                        val eliminadoConExito = vehiculoRepo.eliminarVehiculo(nave.id ?: 0)
 
-                        if (eliminadoConExito){
-                            Toast.makeText(requireContext(), "Nave eliminada: ${nave.placa}", Toast.LENGTH_SHORT).show()
-                            actualizarLista()
-                        } else{
-                            Toast.makeText(requireContext(), "Error al intentar eliminar", Toast.LENGTH_SHORT).show()
+                    "Eliminar" -> {
+                        Utilidades.mostrarDialogoConfirmacion(
+                            contexto = requireContext(),
+                            titulo = "Eliminar Vehículo",
+                            mensaje = "¿Deseas borrar el ${nave.marca} ${nave.modelo}? Se eliminarán también todos sus historiales.",
+                            textoBotonConfirmar = "Sí, eliminar"
+                        ) {
+                            val eliminadoConExito = vehiculoRepo.eliminarVehiculo(nave.id ?: 0)
+
+                            if (eliminadoConExito) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Nave eliminada: ${nave.placa}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                actualizarLista()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error al intentar eliminar",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }

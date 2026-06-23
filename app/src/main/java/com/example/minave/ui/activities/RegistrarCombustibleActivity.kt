@@ -1,7 +1,6 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.minave.databinding.ActivityRegistrarCombustibleBinding
 import com.example.minave.modelos.Combustible
 import com.example.minave.repositorio.CombustibleRepository
-import java.util.*
+import java.util.Calendar
 
 class RegistrarCombustibleActivity : AppCompatActivity() {
 
@@ -73,7 +72,7 @@ class RegistrarCombustibleActivity : AppCompatActivity() {
             return
         }
 
-        val preferencias = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+        val preferencias = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
         val idVehiculoActivo = preferencias.getInt("id_vehiculo_activo", -1)
 
         if (idVehiculoActivo == -1) {

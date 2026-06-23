@@ -1,4 +1,4 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -34,7 +34,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
                 binding.btnGuardarCertificado.text = "Actualizar Registro"
                 idCertificadoEditar = bundle.getInt("id_certificado", -1)
                 idVehiculoRelacionado = bundle.getInt("id_vehiculo", -1)
-                
+
                 binding.campoTipoDocumento.setText(bundle.getString("tipo", ""))
                 binding.campoEmpresaEmisora.setText(bundle.getString("empresa", ""))
                 binding.campoFechaEmision.setText(bundle.getString("emision", ""))
@@ -81,7 +81,7 @@ class RegistrarCertificadoActivity : AppCompatActivity() {
 
         if (tipo.isNotEmpty()) {
             val valorCosto = costoStr.toDoubleOrNull() ?: 0.0
-            
+
             val certificado = Certificado(
                 id = if (modoEdicion) idCertificadoEditar else null,
                 idVehiculo = idVehiculoRelacionado,

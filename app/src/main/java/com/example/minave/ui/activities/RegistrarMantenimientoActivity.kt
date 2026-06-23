@@ -1,4 +1,4 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.minave.databinding.ActivityRegistrarMantenimientoBinding
 import com.example.minave.modelos.Mantenimiento
 import com.example.minave.repositorio.MantenimientoRepository
-import java.util.*
+import java.util.Calendar
 
 class RegistrarMantenimientoActivity : AppCompatActivity() {
 

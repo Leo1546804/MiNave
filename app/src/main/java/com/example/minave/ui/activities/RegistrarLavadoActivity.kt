@@ -1,4 +1,4 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -33,7 +33,7 @@ class RegistrarLavadoActivity : AppCompatActivity() {
                 binding.btnGuardarLavado.text = "Actualizar Registro"
                 idLavadaEditar = bundle.getInt("id_lavada", -1)
                 idVehiculoRelacionado = bundle.getInt("id_vehiculo", -1)
-                
+
                 binding.campoTipoLavado.setText(bundle.getString("tipo", ""))
                 binding.campoLugarLavado.setText(bundle.getString("lugar", ""))
                 binding.campoFechaLavado.setText(bundle.getString("fecha", ""))

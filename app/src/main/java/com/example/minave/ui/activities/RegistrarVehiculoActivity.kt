@@ -1,12 +1,9 @@
-package com.example.minave
-
+package com.example.minave.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.minave.databinding.ActivityRegistrarVehiculoBinding
 import com.example.minave.modelos.Vehiculo
 import com.example.minave.repositorio.VehiculoRepository
@@ -99,14 +96,14 @@ class RegistrarVehiculoActivity : AppCompatActivity() {
                         }
                     } else {
                         val nuevoVehiculo = Vehiculo(
-                        placa = placa,
-                        marca = marca,
-                        modelo = modelo,
-                        anio = anio,
-                        color = color,
-                        tipoCombustible = combustible,
-                        idUsuario = idUsuarioSesion // el vehículo le pertenece al inspector logueado
-                    )
+                            placa = placa,
+                            marca = marca,
+                            modelo = modelo,
+                            anio = anio,
+                            color = color,
+                            tipoCombustible = combustible,
+                            idUsuario = idUsuarioSesion // el vehículo le pertenece al inspector logueado
+                        )
 
                     val idGenerado = vehiculoRepo.insertarVehiculo(nuevoVehiculo)
 

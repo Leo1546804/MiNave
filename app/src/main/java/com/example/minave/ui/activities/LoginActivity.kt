@@ -1,9 +1,11 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.minave.ui.fragments.MainActivity
+import com.example.minave.ui.activities.RegistroActivity
 import com.example.minave.databinding.ActivityLoginBinding
 import com.example.minave.repositorio.UsuarioRepository
 

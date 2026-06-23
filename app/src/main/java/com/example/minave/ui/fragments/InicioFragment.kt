@@ -1,19 +1,20 @@
-package com.example.minave
+package com.example.minave.ui.fragments
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.minave.databinding.FragmentInicioBinding
 import com.example.minave.repositorio.CertificadoRepository
 import com.example.minave.repositorio.CombustibleRepository
 import com.example.minave.repositorio.LavadaRepository
 import com.example.minave.repositorio.MantenimientoRepository
 import com.example.minave.repositorio.VehiculoRepository
+import com.example.minave.ui.activities.RegistrarVehiculoActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class InicioFragment : Fragment() {

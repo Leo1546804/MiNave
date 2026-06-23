@@ -7,7 +7,7 @@
     android:background="@drawable/fondo_app"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".CuentaFragment">
+    tools:context=".ui.fragments.CuentaFragment">
 
     <TextView
         android:layout_width="match_parent"

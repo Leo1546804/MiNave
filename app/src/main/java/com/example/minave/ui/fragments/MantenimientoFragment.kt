@@ -1,19 +1,19 @@
-package com.example.minave
+package com.example.minave.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.minave.utils.Utilidades
 import com.example.minave.adapter.MantenimientoAdapter
 import com.example.minave.databinding.FragmentMantenimientoBinding
 import com.example.minave.modelos.Mantenimiento
 import com.example.minave.repositorio.MantenimientoRepository
-
+import com.example.minave.ui.activities.RegistrarMantenimientoActivity
 
 class MantenimientoFragment : Fragment() {
 
@@ -69,20 +69,20 @@ class MantenimientoFragment : Fragment() {
     }
 
     private fun confirmarEliminacion(mantenimiento: Mantenimiento) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Eliminar Registro")
-            .setMessage("¿Estás seguro de que deseas eliminar este mantenimiento?")
-            .setPositiveButton("Sí, eliminar") { _, _ ->
-                val filasAfectadas = mantenimientoRepo.eliminarMantenimiento(mantenimiento.id)
-                if (filasAfectadas > 0) {
-                    Toast.makeText(requireContext(), "Mantenimiento eliminado", Toast.LENGTH_SHORT).show()
-                    cargarDatosDesdeRepositorio()
-                } else {
-                    Toast.makeText(requireContext(), "Error al eliminar", Toast.LENGTH_SHORT).show()
-                }
+        Utilidades.mostrarDialogoConfirmacion(
+            contexto = requireContext(),
+            titulo = "Eliminar Mantenimiento",
+            mensaje = "¿Estás seguro de que deseas eliminar este registro de mantenimiento?",
+            textoBotonConfirmar = "Sí, eliminar"
+        ) {
+            val filasAfectadas = mantenimientoRepo.eliminarMantenimiento(mantenimiento.id)
+            if (filasAfectadas > 0) {
+                Toast.makeText(requireContext(), "Mantenimiento eliminado", Toast.LENGTH_SHORT).show()
+                cargarDatosDesdeRepositorio()
+            } else {
+                Toast.makeText(requireContext(), "Error al eliminar", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        }
     }
 
     private fun configurarBotonAccion() {
@@ -100,7 +100,7 @@ class MantenimientoFragment : Fragment() {
 
     private fun cargarDatosDesdeRepositorio() {
         val lista = mantenimientoRepo.listarMantenimientosPorVehiculo()
-        
+
         if (lista.isEmpty()) {
             vinculo.rvMantenimientos.visibility = View.GONE
             vinculo.layoutVacioMantenimiento.visibility = View.VISIBLE

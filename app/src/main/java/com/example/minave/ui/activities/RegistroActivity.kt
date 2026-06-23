@@ -1,11 +1,8 @@
-package com.example.minave
+package com.example.minave.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.minave.databinding.ActivityRegistroBinding
 import com.example.minave.modelos.Usuario
 import com.example.minave.repositorio.UsuarioRepository

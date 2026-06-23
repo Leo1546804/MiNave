@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_degradado_bienvenida"
     android:padding="24dp"
-    tools:context=".RegistroActivity">
+    tools:context=".ui.activities.RegistroActivity">
 
     <ScrollView
         android:layout_width="match_parent"

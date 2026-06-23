@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiNave">
         <activity
-            android:name=".RegistrarCombustibleActivity"
+            android:name=".ui.activities.RegistrarCombustibleActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrarMantenimientoActivity"
+            android:name=".ui.activities.RegistrarMantenimientoActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrarVehiculoActivity"
+            android:name=".ui.activities.RegistrarVehiculoActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrarCertificadoActivity"
+            android:name=".ui.activities.RegistrarCertificadoActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrarLavadoActivity"
+            android:name=".ui.activities.RegistrarLavadoActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".ui.activities.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.fragments.MainActivity"
             android:exported="false" />
     </application>
 

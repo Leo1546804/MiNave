@@ -1,15 +1,18 @@
-package com.example.minave
+package com.example.minave.ui.fragments
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.minave.R
+import com.example.minave.utils.Utilidades
 import com.example.minave.databinding.FragmentCuentaBinding
 import com.example.minave.repositorio.UsuarioRepository
+import com.example.minave.ui.activities.LoginActivity
 
 class CuentaFragment : Fragment() {
 
@@ -55,14 +58,21 @@ class CuentaFragment : Fragment() {
     }
 
     private fun cerrarSesion(){
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
+        Utilidades.mostrarDialogoConfirmacion(
+            contexto = requireContext(),
+            titulo = "Cerrar Sesión",
+            mensaje = "¿Estás seguro de que deseas salir de tu cuenta?",
+            textoBotonConfirmar = "Cerrar Sesión",
+            colorBoton = R.color.azul_principal
+        ) {
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
 
-        val intent = Intent(requireContext(), LoginActivity::class.java)
-        // Estas banderas evitan que el usuario pueda volver presionando la tecla "Atrás"
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
