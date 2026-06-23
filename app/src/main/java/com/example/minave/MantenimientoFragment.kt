@@ -100,7 +100,15 @@ class MantenimientoFragment : Fragment() {
 
     private fun cargarDatosDesdeRepositorio() {
         val lista = mantenimientoRepo.listarMantenimientosPorVehiculo()
-        adaptador.actualizarLista(lista)
+        
+        if (lista.isEmpty()) {
+            vinculo.rvMantenimientos.visibility = View.GONE
+            vinculo.layoutVacioMantenimiento.visibility = View.VISIBLE
+        } else {
+            vinculo.rvMantenimientos.visibility = View.VISIBLE
+            vinculo.layoutVacioMantenimiento.visibility = View.GONE
+            adaptador.actualizarLista(lista)
+        }
     }
 
     override fun onDestroyView() {

@@ -33,6 +33,39 @@
             android:paddingBottom="88dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_lavada" />
+
+        <LinearLayout
+            android:id="@+id/layoutVacioLavada"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingBottom="88dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="64sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="No hay registros de lavadas"
+                android:textColor="@color/negro_texto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="¡Toca el botón + para agregar uno nuevo!"
+                android:textColor="@color/gris_subtitulo"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

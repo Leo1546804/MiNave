@@ -29,6 +29,39 @@
             android:layout_weight="1"
             tools:listitem="@layout/item_combustible"/>
 
+        <LinearLayout
+            android:id="@+id/layoutVacioCombustible"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="64sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Aún no tienes historiales registrados"
+                android:textColor="@color/negro_texto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="¡Toca el botón + para agregar uno nuevo!"
+                android:textColor="@color/gris_subtitulo"
+                android:textSize="15sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

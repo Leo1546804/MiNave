@@ -47,30 +47,38 @@ class CertificadosFragment : Fragment() {
 
     private fun refrescarListaCertificados() {
         val listaCertificados = repositorioCertificado.listar()
-        vinculo.rvCertificados.adapter = CertificadoAdapter(listaCertificados) { certificado, opcion ->
-            when (opcion) {
-                "Editar" -> {
-                    val intencion = Intent(requireContext(), RegistrarCertificadoActivity::class.java)
-                    intencion.putExtra("modo_edicion", true)
-                    intencion.putExtra("id_certificado", certificado.id ?: -1)
-                    intencion.putExtra("id_vehiculo", certificado.idVehiculo)
-                    intencion.putExtra("tipo", certificado.tipoDocumento)
-                    intencion.putExtra("empresa", certificado.empresaEmisora)
-                    intencion.putExtra("emision", certificado.fechaEmision)
-                    intencion.putExtra("vencimiento", certificado.fechaVencimiento)
-                    intencion.putExtra("costo", certificado.costo)
-                    intencion.putExtra("observaciones", certificado.observaciones)
-                    startActivity(intencion)
-                }
-                "Eliminar" -> {
-                    val idAEliminar = certificado.id ?: -1
-                    if (idAEliminar != -1) {
-                        val seElimino = repositorioCertificado.eliminar(idAEliminar)
-                        if (seElimino) {
-                            Toast.makeText(requireContext(), "Certificado eliminado", Toast.LENGTH_SHORT).show()
-                            refrescarListaCertificados()
-                        } else {
-                            Toast.makeText(requireContext(), "No se pudo eliminar", Toast.LENGTH_SHORT).show()
+        
+        if (listaCertificados.isEmpty()) {
+            vinculo.rvCertificados.visibility = View.GONE
+            vinculo.layoutVacioCertificado.visibility = View.VISIBLE
+        } else {
+            vinculo.rvCertificados.visibility = View.VISIBLE
+            vinculo.layoutVacioCertificado.visibility = View.GONE
+            vinculo.rvCertificados.adapter = CertificadoAdapter(listaCertificados) { certificado, opcion ->
+                when (opcion) {
+                    "Editar" -> {
+                        val intencion = Intent(requireContext(), RegistrarCertificadoActivity::class.java)
+                        intencion.putExtra("modo_edicion", true)
+                        intencion.putExtra("id_certificado", certificado.id ?: -1)
+                        intencion.putExtra("id_vehiculo", certificado.idVehiculo)
+                        intencion.putExtra("tipo", certificado.tipoDocumento)
+                        intencion.putExtra("empresa", certificado.empresaEmisora)
+                        intencion.putExtra("emision", certificado.fechaEmision)
+                        intencion.putExtra("vencimiento", certificado.fechaVencimiento)
+                        intencion.putExtra("costo", certificado.costo)
+                        intencion.putExtra("observaciones", certificado.observaciones)
+                        startActivity(intencion)
+                    }
+                    "Eliminar" -> {
+                        val idAEliminar = certificado.id ?: -1
+                        if (idAEliminar != -1) {
+                            val seElimino = repositorioCertificado.eliminar(idAEliminar)
+                            if (seElimino) {
+                                Toast.makeText(requireContext(), "Certificado eliminado", Toast.LENGTH_SHORT).show()
+                                refrescarListaCertificados()
+                            } else {
+                                Toast.makeText(requireContext(), "No se pudo eliminar", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

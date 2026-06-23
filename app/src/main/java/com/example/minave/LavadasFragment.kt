@@ -47,25 +47,33 @@ class LavadasFragment : Fragment() {
 
     private fun cargarLavadas() {
         val lista = repositorio.listar()
-        binding.rvLavadas.adapter = LavadaAdapter(lista) { lavada, opcion ->
-            when (opcion) {
-                "Editar" -> {
-                    val intent = Intent(requireContext(), RegistrarLavadoActivity::class.java).apply {
-                        putExtra("modo_edicion", true)
-                        putExtra("id_lavada", lavada.id)
-                        putExtra("id_vehiculo", lavada.idVehiculo)
-                        putExtra("tipo", lavada.tipo)
-                        putExtra("lugar", lavada.lugar)
-                        putExtra("fecha", lavada.fecha)
-                        putExtra("costo", lavada.costo)
-                        putExtra("observaciones", lavada.observaciones)
+        
+        if (lista.isEmpty()) {
+            binding.rvLavadas.visibility = View.GONE
+            binding.layoutVacioLavada.visibility = View.VISIBLE
+        } else {
+            binding.rvLavadas.visibility = View.VISIBLE
+            binding.layoutVacioLavada.visibility = View.GONE
+            binding.rvLavadas.adapter = LavadaAdapter(lista) { lavada, opcion ->
+                when (opcion) {
+                    "Editar" -> {
+                        val intent = Intent(requireContext(), RegistrarLavadoActivity::class.java).apply {
+                            putExtra("modo_edicion", true)
+                            putExtra("id_lavada", lavada.id)
+                            putExtra("id_vehiculo", lavada.idVehiculo)
+                            putExtra("tipo", lavada.tipo)
+                            putExtra("lugar", lavada.lugar)
+                            putExtra("fecha", lavada.fecha)
+                            putExtra("costo", lavada.costo)
+                            putExtra("observaciones", lavada.observaciones)
+                        }
+                        startActivity(intent)
                     }
-                    startActivity(intent)
-                }
-                "Eliminar" -> {
-                    if (repositorio.eliminar(lavada.id)) {
-                        Toast.makeText(requireContext(), "Registro eliminado", Toast.LENGTH_SHORT).show()
-                        cargarLavadas()
+                    "Eliminar" -> {
+                        if (repositorio.eliminar(lavada.id)) {
+                            Toast.makeText(requireContext(), "Registro eliminado", Toast.LENGTH_SHORT).show()
+                            cargarLavadas()
+                        }
                     }
                 }
             }

@@ -48,24 +48,32 @@ class CombustibleFragment : Fragment() {
 
         if (idVehiculoActivo != -1) {
             val listaRegistros = combustibleRepo.obtenerRegistrosPorVehiculo(idVehiculoActivo)
-            
-            binding.rvCombustible.adapter = CombustibleAdapter(listaRegistros) { registro, opcion ->
-                when (opcion) {
-                    "Editar" -> {
-                        val intencion = Intent(requireContext(), RegistrarCombustibleActivity::class.java)
-                        intencion.putExtra("modo_edicion", true)
-                        intencion.putExtra("id_registro", registro.id)
-                        intencion.putExtra("fecha", registro.fecha)
-                        intencion.putExtra("litros", registro.litros)
-                        intencion.putExtra("costo", registro.costo)
-                        intencion.putExtra("observaciones", registro.observaciones)
-                        startActivity(intencion)
-                    }
-                    "Eliminar" -> {
-                        val exito = combustibleRepo.eliminarCombustible(registro.id ?: 0)
-                        if (exito) {
-                            Toast.makeText(requireContext(), "Registro eliminado", Toast.LENGTH_SHORT).show()
-                            actualizarLista()
+
+            if (listaRegistros.isEmpty()) {
+                binding.rvCombustible.visibility = View.GONE
+                binding.layoutVacioCombustible.visibility = View.VISIBLE
+            } else {
+                binding.rvCombustible.visibility = View.VISIBLE
+                binding.layoutVacioCombustible.visibility = View.GONE
+                
+                binding.rvCombustible.adapter = CombustibleAdapter(listaRegistros) { registro, opcion ->
+                    when (opcion) {
+                        "Editar" -> {
+                            val intencion = Intent(requireContext(), RegistrarCombustibleActivity::class.java)
+                            intencion.putExtra("modo_edicion", true)
+                            intencion.putExtra("id_registro", registro.id)
+                            intencion.putExtra("fecha", registro.fecha)
+                            intencion.putExtra("litros", registro.litros)
+                            intencion.putExtra("costo", registro.costo)
+                            intencion.putExtra("observaciones", registro.observaciones)
+                            startActivity(intencion)
+                        }
+                        "Eliminar" -> {
+                            val exito = combustibleRepo.eliminarCombustible(registro.id ?: 0)
+                            if (exito) {
+                                Toast.makeText(requireContext(), "Registro eliminado", Toast.LENGTH_SHORT).show()
+                                actualizarLista()
+                            }
                         }
                     }
                 }
