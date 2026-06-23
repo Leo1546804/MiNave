@@ -9,14 +9,11 @@
     android:padding="20dp">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="12dp"
-        android:background="#33FFFFFF"
-        android:padding="12dp"
-        android:src="@android:drawable/ic_menu_compass"
-        android:backgroundTint="@android:color/white"
-        app:tint="@android:color/white"
+        android:padding="8dp"
+        android:src="@drawable/minave_logo"
         android:clipToOutline="true" />
 
     <TextView

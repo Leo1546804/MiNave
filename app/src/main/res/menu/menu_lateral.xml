@@ -4,30 +4,38 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
+            android:icon="@drawable/home"
             android:title="Dashboard / Inicio" />
         <item
             android:id="@+id/nav_vehiculos"
+            android:icon="@drawable/cars"
             android:title="Mis Vehículos" />
         <item
             android:id="@+id/nav_combustible"
-            android:title="Control de Combustible" />
+            android:icon="@drawable/combustible"
+            android:title="Combustible" />
         <item
             android:id="@+id/nav_mantenimiento"
+            android:icon="@drawable/mantenimiento"
             android:title="Mantenimientos" />
         <item
             android:id="@+id/nav_lavadas"
-            android:title="Historial de Lavadas" />
+            android:icon="@drawable/carwash"
+            android:title="Lavadas" />
         <item
             android:id="@+id/nav_certificados"
-            android:title="Documentos y Certificados" />
+            android:icon="@drawable/documentos"
+            android:title="Certificados" />
     </group>
 
     <group android:id="@+id/grupo_cuenta">
         <item
             android:id="@+id/nav_cuenta"
+            android:icon="@drawable/user"
             android:title="Mi Perfil" />
         <item
             android:id="@+id/nav_cerrar_sesion"
+            android:icon="@drawable/logout"
             android:title="Cerrar Sesión" />
     </group>
 

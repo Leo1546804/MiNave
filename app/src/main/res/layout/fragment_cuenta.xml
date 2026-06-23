@@ -35,7 +35,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher_round"
+                android:src="@drawable/user"
                 android:layout_marginBottom="12dp"/>
 
             <TextView

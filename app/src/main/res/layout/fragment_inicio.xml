@@ -71,6 +71,13 @@
             android:padding="24dp"
             android:visibility="gone">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/cars"
+                app:tint="@color/azul_principal"
+                android:layout_marginBottom="16dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,34 +102,6 @@
                 android:layout_marginTop="24dp"
                 android:text="Registrar vehículo"
                 app:cornerRadius="8dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="24dp"
-                android:background="#CFD8DC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Accesos rápidos"
-                android:textColor="#37474F"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚫 Combustible" android:textColor="#90A4AE" android:textSize="16sp" android:layout_marginBottom="8dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚫 Mantenimientos" android:textColor="#90A4AE" android:textSize="16sp" android:layout_marginBottom="8dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚫 Lavadas" android:textColor="#90A4AE" android:textSize="16sp" android:layout_marginBottom="8dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚫 Documentos" android:textColor="#90A4AE" android:textSize="16sp" />
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(Deshabilitados hasta registrar un vehículo)" android:textColor="#B0BEC5" android:textSize="12sp" android:layout_marginTop="12dp" android:textStyle="italic"/>
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -162,28 +141,52 @@
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⛽ Combustible" android:textColor="#616161" android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/combustible"
+                            app:tint="@color/azul_principal"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Combustible" android:textColor="#616161" android:textSize="14sp" />
                         <TextView android:id="@+id/txtGastoCombustible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔧 Mantenimientos" android:textColor="#616161" android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/mantenimiento"
+                            app:tint="@color/azul_principal"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mantenimientos" android:textColor="#616161" android:textSize="14sp" />
                         <TextView android:id="@+id/txtGastoMantenimiento" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🧽 Lavadas" android:textColor="#616161" android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/carwash"
+                            app:tint="@color/azul_principal"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lavadas" android:textColor="#616161" android:textSize="14sp" />
                         <TextView android:id="@+id/txtGastoLavadas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_margin="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📄 Documentos" android:textColor="#616161" android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/documentos"
+                            app:tint="@color/azul_principal"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Documentos" android:textColor="#616161" android:textSize="14sp" />
                         <TextView android:id="@+id/txtGastoDocumentos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S/ 0.00" android:textColor="#212121" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

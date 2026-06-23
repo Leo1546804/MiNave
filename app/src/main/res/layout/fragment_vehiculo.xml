@@ -33,6 +33,40 @@
             android:paddingBottom="88dp"
             android:clipToPadding="false"
              />
+
+        <LinearLayout
+            android:id="@+id/layoutVacioVehiculo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingBottom="88dp">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/cars"
+                app:tint="@color/azul_principal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="No tienes vehículos registrados"
+                android:textColor="@color/negro_texto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="¡Toca el botón + para registrar tu primera nave!"
+                android:textColor="@color/gris_subtitulo"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

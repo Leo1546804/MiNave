@@ -22,8 +22,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_revert"
-            app:tint="@color/azul_principal" />
+            android:src="@drawable/back"
+            app:tint="@color/azul_principal"
+            android:contentDescription="Volver" />
 
         <TextView
             android:id="@+id/txtTituloCombustible"
